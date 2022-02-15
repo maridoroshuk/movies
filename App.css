@@ -17,7 +17,9 @@ img {
 h2 {
   font-size: 0.8rem;
 }
-
+.filter-container {
+  margin-bottom: 2rem;
+}
 .filter-container button {
   margin-right: 2rem;
   min-width: 5rem;

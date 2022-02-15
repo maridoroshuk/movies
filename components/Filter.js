@@ -1,34 +1,44 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { moviesActions } from "../features/movies/movies-slice";
 
-function Filter({ popular, setFiltered, activeGenre, setActiveGenre }) {
+function Filter() {
+  const dispatch = useDispatch()
+
+  const activeGenre = useSelector((state) => state.movies.activeGenre)
+  
   useEffect(() => {
-    if (activeGenre === 0) {
-      setFiltered(popular);
-      return;
-    }
+    dispatch(moviesActions.replaceFiltered(activeGenre))
+  },[activeGenre]);
 
-    const filtered = popular.filter((movie) =>
-      movie.genre_ids.includes(activeGenre)
-    );
-    setFiltered(filtered);
-  }, [activeGenre]);
+  const genreAllHandler = () =>  {
+    dispatch(moviesActions.setActiveGenre(0))
+  }
+  const genreComedyHandler = () =>  {
+    dispatch(moviesActions.setActiveGenre(35))
+
+  }
+  const genreActionHandler = () =>  {
+    dispatch(moviesActions.setActiveGenre(28))
+
+  }
 
   return (
     <div className="filter-container">
       <button
-        onClick={() => setActiveGenre(0)}
+        onClick={genreAllHandler}
         className={activeGenre === 0 ? "active" : ""}
       >
         All
       </button>
       <button
-        onClick={() => setActiveGenre(35)}
+        onClick={genreComedyHandler}
         className={activeGenre === 35 ? "active" : ""}
       >
         Comedy
       </button>
       <button
-        onClick={() => setActiveGenre(28)}
+        onClick={genreActionHandler}
         className={activeGenre === 28 ? "active" : ""}
       >
         Action
