@@ -5,7 +5,6 @@ import Movie from "./Movie";
 const MovieList = () => {
   const popular = useSelector((state) => state.movies.popular)
   const filtered = useSelector((state) => state.movies.filtered)
-  console.log(filtered)
   return (
     <motion.div layout className="popular-movies">
       <AnimatePresence>

@@ -4,6 +4,8 @@ import Filter from "./components/Filter";
 import MovieList from "./components/MovieList";
 import { useDispatch } from "react-redux";
 import { fetchPopular } from "./features/movies/movies-actions";
+import HomePage from "./pages/HomePage";
+import AuthForm from "./components/AuthForm";
 
 function App() {
   const dispatch = useDispatch()
@@ -14,8 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <Filter />
-      <MovieList />
+     <HomePage/>
+     <AuthForm/>
     </div>
   );
 }
