@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import styles from './Movie.module.css'
 
 function Movie({ movie }) {
   return (

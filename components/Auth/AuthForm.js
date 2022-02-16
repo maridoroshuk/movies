@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../features/athentication/auth-actions";
-import { authActions } from "../features/athentication/auth-slice";
+import { authActions } from "../../features/athentication/auth-slice";
+import useToken from "../../hooks/useToken";
+import styles from './AuthForm.module.css'
 
 function AuthForm() {
+  const login = useToken()
   const dispatch = useDispatch();
 
   const navigate = useNavigate()
@@ -69,7 +71,40 @@ function AuthForm() {
       alert(err.message)
     })
   }
-  return <div>AuthForm</div>;
+  return (
+    <section className={styles.auth}>
+      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+      <form onSubmit={submitHandler}>
+        <div className={styles.control}>
+        <label htmlFor='email'>Your Email</label>
+          <input type='email' id='email' required ref={emailInputRef} />
+        </div>
+        <div className={styles.control}>
+        <label htmlFor='password'>Your Password</label>
+          <input
+            type='password'
+            id='password'
+            required
+            ref={passwordInputRef}
+          />
+        </div>
+        <div className={styles.actions}>
+        {!isLoading && (
+          <button>{isLogin ? 'Login' : 'Create Account'}</button>
+        )}
+        {isLoading && <p>Sending request...</p>}
+        <button
+          type='button'
+          className={styles.toggle}
+          onClick={switchAuthModeHandler}
+        >
+          {isLogin ? 'Create new account' : 'Login with existing account'}
+        </button>
+        </div>
+      </form>
+
+    </section>
+  )
 }
 
 export default AuthForm;
