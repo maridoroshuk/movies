@@ -9,9 +9,6 @@ import Layout from "./components/Layout/Layout";
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPopular());
-  }, [dispatch]);
 
   return (
     <>

@@ -1,110 +1,50 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../../features/athentication/auth-slice";
 import useToken from "../../hooks/useToken";
-import styles from './AuthForm.module.css'
+import styles from "./AuthForm.module.css";
 
-function AuthForm() {
-  const login = useToken()
-  const dispatch = useDispatch();
+function AuthForm({ title, handleAuthClick }) {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
 
-  const navigate = useNavigate()
+  const submitHandler = () => {};
 
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
-  const isLogin = useSelector((state) => state.auth.isLoggedIn)
-  const isLoading = useSelector((state) => state.auth.isLoading)
-
-  const switchAuthModeHandler = () => {
-    dispatch(authActions.setIsLoggedIn())
-  }
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value
-
-    dispatch(authActions.setIsLoading(true))
-
-    let url;
-    if(isLogin) {
-      url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBZhsabDexE9BhcJbGxnZ4DiRlrCN9xe24';
-    } else {
-      url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBZhsabDexE9BhcJbGxnZ4DiRlrCN9xe24';
-    }
-
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    .then((res) => {
-      dispatch(authActions.setIsLoading(false))
-      if(res.ok) {
-        return res.json()
-      } else {
-        return res.json().then((data) => {
-          let errorMessage = 'Authentication failed!';
-
-          throw new Error(errorMessage)
-        })
-      }
-    })
-    .then((data) => {
-      const expirationTime = new Date (
-        new Date().getTime() + +data.expiresIn * 1000
-      )
-      login(data.idToken, expirationTime.toISOString())
-      navigate('/')
-    })
-    .catch((err) => {
-      alert(err.message)
-    })
-  }
   return (
     <section className={styles.auth}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+      <h1>{title}</h1>
       <form onSubmit={submitHandler}>
         <div className={styles.control}>
-        <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required ref={emailInputRef} />
+          <label htmlFor="email">Your Email</label>
+          <input
+            type="email"
+            id="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className={styles.control}>
-        <label htmlFor='password'>Your Password</label>
+          <label htmlFor="password">Your Password</label>
           <input
-            type='password'
-            id='password'
+            type="password"
+            id="password"
             required
-            ref={passwordInputRef}
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
           />
         </div>
         <div className={styles.actions}>
-        {!isLoading && (
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
-        )}
-        {isLoading && <p>Sending request...</p>}
-        <button
-          type='button'
-          className={styles.toggle}
-          onClick={switchAuthModeHandler}
-        >
-          {isLogin ? 'Create new account' : 'Login with existing account'}
-        </button>
+          <button
+            type="button"
+            onClick={() => handleAuthClick(email, pass)}>
+            {title}
+          </button>
         </div>
       </form>
-
     </section>
-  )
+  );
 }
 
 export default AuthForm;

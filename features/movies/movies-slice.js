@@ -6,13 +6,17 @@ const moviesSlice = createSlice({
     popular: [],
     filtered: [],
     activeGenre: 0,
+    currentPage: 1,
+    perPage: 10,
+    totalPages: 0
   },
   reducers: {
     setPopular(state, action) {
-      state.popular = action.payload;
+      state.popular = action.payload.results;
+      state.totalPages = action.payload.total_pages
     },
     setFiltered(state, action) {
-      state.filtered = action.payload;
+      state.filtered = action.payload.results;
     },
 
     replaceFiltered(state, action) {
@@ -28,6 +32,9 @@ const moviesSlice = createSlice({
     setActiveGenre(state, action) {
       state.activeGenre = action.payload;
     },
+    serCurrentPage(state, action) {
+      state.currentPage = action.payload
+    }
   },
 });
 
