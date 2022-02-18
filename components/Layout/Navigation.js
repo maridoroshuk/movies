@@ -2,13 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { authActions } from "../../features/athentication/auth-slice";
-import useAuth from "../../hooks/useAuth";
-import useToken from "../../hooks/useToken";
 import styles from './Navigation.module.css'
 
 function Navigation() {
   const  isAuth  = useSelector((state) => state.auth.isAuth)
-  console.log(isAuth)
 
   const dispatch = useDispatch()
   const logoutHandler = () => {
