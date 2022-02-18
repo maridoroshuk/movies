@@ -1,20 +1,21 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { authActions } from "../../features/athentication/auth-slice";
-import useToken from "../../hooks/useToken";
 import styles from "./AuthForm.module.css";
 
 function AuthForm({ title, handleAuthClick }) {
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const submitHandler = () => {};
+  const createAccountHandler = () => {
+    dispatch(authActions.createNewUser())
+  }
 
   return (
     <section className={styles.auth}>
       <h1>{title}</h1>
-      <form onSubmit={submitHandler}>
+      <form>
         <div className={styles.control}>
           <label htmlFor="email">Your Email</label>
           <input
@@ -36,10 +37,16 @@ function AuthForm({ title, handleAuthClick }) {
           />
         </div>
         <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={() => handleAuthClick(email, pass)}>
+          <button type="button"
+          onClick={() => handleAuthClick(email, pass)}>
             {title}
+          </button>
+          <button
+            className={styles.toggle}
+            type="button"
+            onClick={createAccountHandler}
+          >
+            Create account
           </button>
         </div>
       </form>

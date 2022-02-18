@@ -36,7 +36,7 @@
   .header button {
     font: inherit;
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid #AC5D98;
     color: white;
     font-weight: bold;
     padding: 0.5rem 1.5rem;
@@ -45,10 +45,10 @@
   }
   
   .header a:hover {
-    color: #CEA1C3;
+    color: #AC5D98;
   }
   
   .header button:hover {
-    background-color: #CEA1C3;
-    color: #38015c;
+    background-color: #AC5D98;
+    color: #fff;
   }

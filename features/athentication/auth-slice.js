@@ -5,7 +5,9 @@ const authSlice = createSlice({
   initialState: {
     token: "",
     email: "",
+    isAuth: false,
     id: "",
+    isNewUser: false
   },
   reducers: {
     setInitialToken(state, action) {
@@ -18,13 +20,18 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.id = action.payload.id;
+      state.isAuth = true
     },
     removeUser(state) {
         state.email = null;
         state.token = null;
         state.id = null;
-  
+        state.isAuth = false
+        state.isNewUser = false
     },
+    createNewUser(state) {
+      state.isNewUser = !state.isNewUser
+    }
   },
 });
 
