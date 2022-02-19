@@ -7,13 +7,18 @@ const moviesSlice = createSlice({
     filtered: [],
     activeGenre: 0,
     currentPage: 1,
-    perPage: 10,
-    totalPages: 0
+    totalPages: 0,
+    movie: {},
+    isLoading: true,
+    error: null
   },
   reducers: {
     setPopular(state, action) {
       state.popular = action.payload.results;
       state.totalPages = action.payload.total_pages
+    },
+    setMovie(state, action) {
+      state.movie = action.payload;
     },
     setFiltered(state, action) {
       state.filtered = action.payload.results;
@@ -34,6 +39,12 @@ const moviesSlice = createSlice({
     },
     serCurrentPage(state, action) {
       state.currentPage = action.payload
+    },
+    setIsLoading(state, action) {
+      state.isLoading = action.payload
+    },
+    setError(state) {
+      state.error = 'Something went wrong...'
     }
   },
 });

@@ -1,0 +1,46 @@
+.container {
+    margin: 2rem 5em;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.container img {
+    width: 40rem;
+}
+h1 {
+    font-size: 2rem;
+}
+.org_title {
+    color: #AC5D98;
+    font-style: italic;
+}
+
+.genres {
+    display: inline-block;
+    background-color: #AC5D98;
+    color: #fff;
+    margin: 0.2rem;
+    padding: 0.4rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.8rem;
+
+}
+
+@media (max-width: 60rem)  {
+    .container {
+        margin: 2rem;
+    }
+    .container {
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+    }
+    .container img {
+        width: 25rem;
+        height: 15rem;
+    }
+}
