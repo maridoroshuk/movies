@@ -9,7 +9,7 @@ const moviesSlice = createSlice({
     currentPage: 1,
     totalPages: 0,
     movie: {},
-    isLoading: true,
+    isLoading: false,
     error: null
   },
   reducers: {
@@ -41,6 +41,7 @@ const moviesSlice = createSlice({
       state.currentPage = action.payload
     },
     setIsLoading(state, action) {
+      console.log(action)
       state.isLoading = action.payload
     },
     setError(state) {

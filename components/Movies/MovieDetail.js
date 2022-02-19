@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchMovieDetails } from "../../features/movies/movies-actions";
 import styles from "./MovieDetails.module.css";
 import uniqid from 'uniqid';
+import Loader from "../Loader/Loader";
 
 function MovieDetail() {
   const params = useParams();
@@ -26,7 +27,7 @@ function MovieDetail() {
 //   let uniqKey = uniqid() + movie.id
   return (
       <>
-      {isLoading && <p>Data is loading....</p>}
+      {isLoading && <div className={styles.loader}><Loader/></div>}
       {!isLoading  && <div className={styles.container}>
       <section className={styles.description}>
         <div>

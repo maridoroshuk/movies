@@ -8,7 +8,6 @@ import Layout from "./components/Layout/Layout";
 import MovieDetail from "./components/Movies/MovieDetail";
 
 function App() {
-  const dispatch = useDispatch();
 
 
   return (
